@@ -1,33 +1,3 @@
-/*
-for (file in rootDir.listFiles()) {
-	if (file.isDirectory() && file.name.startsWith("") && (new File(file, "build.gradle").exists() || new File(file, "build.gradle.kts").exists())) {
-		include(":${file.name}")
-	}
-}
-*/
 
-String moduleName(File f) {
-	if (f.parentFile == rootDir || f.parentFile == null) {
-		return f.name
-	} else {
-		def p = moduleName(f.parentFile)
-		return "${p}:${f.name}"
-	}
-}
-
-fileTree(rootProject.projectDir) {
-	include("**"+"/build.gradle.kts")
-	include("**"+"/build.gradle")
-	exclude("**"+"/build/**")
-	exclude("**"+"/integrations/**")
-	exclude("**"+"/.idea/**")
-	exclude("**"+"/.gradle/**")
-	exclude("**"+"/.github/**")
-}.forEach {
-	if (it.parentFile != null && !it.path.contains("korge-bundles")) {
-		def sample = moduleName(it.parentFile)
-		//println(sample)
-		include(":$sample")
-	}
-	//project(":$sample").projectDir = File(relativePath(it.parent))
-}
+include ':game'
+include ':game:2048'
