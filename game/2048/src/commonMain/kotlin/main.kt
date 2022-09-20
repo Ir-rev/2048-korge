@@ -1,11 +1,9 @@
-import com.soywiz.korev.*
+import Colors.MAIN_BACKGROUND
+import Constants.gameSceneSize
 import com.soywiz.korge.*
-import com.soywiz.korge.view.*
-import com.soywiz.korim.color.*
+import com.soywiz.korim.color.Colors
 
-suspend fun main() = Korge(width = 512, height = 512, bgcolor = Colors["#2b2b2b"]) {
-	circle(25.0, fill = Colors.GREEN)
+suspend fun main() = Korge(width = gameSceneSize, height = gameSceneSize, bgcolor = Colors[MAIN_BACKGROUND]) {
+	GameScene().createScene(this)
 }
 
-
-class GameRestartEvent : Event()
