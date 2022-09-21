@@ -12,6 +12,9 @@ import com.soywiz.korge.view.Text
 import com.soywiz.korge.view.addTo
 import com.soywiz.korge.view.xy
 import com.soywiz.korim.color.Colors
+import com.soywiz.korim.color.Colors.ALICEBLUE
+import com.soywiz.korim.color.Colors.RED
+import com.soywiz.korim.color.Colors.TRANSPARENT_BLACK
 import com.soywiz.korim.paint.Paint
 import com.soywiz.korma.geom.Point
 
@@ -36,7 +39,8 @@ class GameScene {
 				addRandomValueInEmptyCell()
 				queueUpdate.forEach {
 					it.text.text = it.value.toString()
-					it.frame.color = Colors["#5dff1d"]
+					println(it.frame.color)
+					it.frame.color = Colors["#ff2f1bea"]
 				}
 			}
 		}
@@ -45,7 +49,7 @@ class GameScene {
 	private fun addRandomValueInEmptyCell() {
 		val randomItem = gameCellsList
 			.filter { it.value == null }
-			.getRandomItem()
+			.getRandomItem() ?: return
 		randomItem.value = 4
 		queueUpdate.add(randomItem)
 	}
@@ -58,12 +62,17 @@ class GameScene {
 		return result
 	}
 
+	private fun setTextToCellCenter(text: Text){
+		val x = text.x
+		val y = text.y
+	}
+
 	private fun createCell(color: Paint) =
 		RoundRect(
 			width = getCellWidth(),
 			height = getCellHeight(),
 			rx = cellRadius,
-			fill = color
+			stroke = color
 		)
 
 	private fun getCellWidth() = (gameField.width - (LINE_COUNT + 1) * dividerSize) / LINE_COUNT
